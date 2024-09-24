@@ -1,0 +1,61 @@
+.notification-div{
+  background-color: var(--back-light-color);
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 57px;
+}
+.div-request-friend-btn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.accept-friend-btn{
+  background-color: #1877F2;
+  border: none;
+  color: white;
+  height: 32px;
+  width: 80px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  
+}
+.reject-friend-btn{
+  background-color: rgb(137, 137, 137);
+  border: none;
+  color: white;
+  height: 32px;
+  width: 80px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* .btn{
+  border: none;
+  color: white;
+  padding: 15px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+} */
+@media screen and (max-width: 768px) {
+  .notification-div{
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .notification-div{
+    width: 90%;
+  }
+  
+}

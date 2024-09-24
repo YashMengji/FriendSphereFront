@@ -1,0 +1,70 @@
+.div-full-container {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: var(--back-light-color); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+.div-login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: var(--back-light-color); */
+  width: 390px;
+  height: 435px;
+  /* margin-top: 80px; */
+  padding: 11px 0px;
+  border-radius: 32px;
+  border: 1px solid #d9d9d9;
+}
+.div-logo-img{
+}
+.logo-img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+.div-sign-text{
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.username-input, .password-input{
+  display: block;
+  width: 360px;
+  height: 55px;
+  font-size: 16px;
+  border: 1px solid rgba(163, 163, 163, 0.87);
+  border-radius: 3px; 
+  padding-left: 15px;
+  margin-bottom: 20px;
+  /* box-shadow: rgba(113, 113, 126, 0.2) 0px 0px 5px 0px; */
+}
+.register-link{
+  font-size: 14px;
+  color: rgb(34, 86, 255);
+}
+.div-login-error{
+  color: rgb(236, 0, 0);
+  margin-top: 10px;
+  font-weight: 500;
+}
+.login-btn{
+  color: white;
+  background-color: var(--dark-color);
+  border: none;
+  border-radius: 3px;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 25px;
+  cursor: pointer;
+}
