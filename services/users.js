@@ -1,5 +1,11 @@
 import { makeRequests } from "./makeRequests"
 
+export function awakeServer(){
+  return makeRequests(`/`, {
+    method: "GET",
+  })
+}
+
 export function createUser({fname, lname, username, password, email}){
   return makeRequests(`/register`, {
     method: "POST",

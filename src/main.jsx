@@ -1,6 +1,6 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from './App.jsx'
 import Register from '../components/Register.jsx'
 import Login from '../components/Login.jsx'
@@ -8,21 +8,22 @@ import UserContext from '../contexts/UserContext.jsx'
 import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
+import { awakeServer } from '../services/users.js'
 
 const createRouter = createBrowserRouter(
   [
     {
       path: "/",
-      element: <App/>,
-      children: [ 
+      element: <App />,
+      children: [
         {
-          path: "/register", 
-          element:<Register/>
-        }, 
+          path: "/register",
+          element: <Register />
+        },
         {
-          path: "/login", 
-          element: <Login/>
-        }, 
+          path: "/login",
+          element: <Login />
+        },
         {
           path: '/home',
           element: (
