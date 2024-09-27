@@ -13,7 +13,7 @@ function App(){
 
   useEffect(() => {
     const token = Cookies.get('token');
-    if (location.pathname == "/" && token) {
+    if (location.pathname == "/") {
       navigate('/home');
     }
   }, [location.pathname]);
