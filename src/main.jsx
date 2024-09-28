@@ -45,8 +45,16 @@ const createRouter = createBrowserRouter(
   ]
 )
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={createRouter}/>
-  </StrictMode>,
-)
+const Main = () => {
+  useEffect(() => {
+    awakeServer()
+  }, [])
+
+  return (
+    <StrictMode>
+      <RouterProvider router={createRouter}/>
+    </StrictMode>
+  )
+}
+
+createRoot(document.getElementById('root')).render(<Main />)
