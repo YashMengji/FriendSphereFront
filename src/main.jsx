@@ -46,8 +46,8 @@ const createRouter = createBrowserRouter(
 )
 
 const Main = () => {
-  useEffect(() => {
-    awakeServer()
+  useEffect(async () => {
+    await awakeServer();
   }, [])
 
   return (
