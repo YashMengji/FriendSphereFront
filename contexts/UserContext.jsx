@@ -53,7 +53,7 @@ function UserContext({ children }) {
     >
       {
         loading ? (<h1>Loading...</h1>) :
-        error ? (<h1>Error</h1>) :
+        error ? (<h1>{error}</h1>) :
         children
       }
     </userContext.Provider>
