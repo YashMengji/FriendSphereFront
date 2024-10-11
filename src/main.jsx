@@ -9,6 +9,7 @@ import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
 import { awakeServer } from '../services/users.js'
+import { useAsync } from '../hooks/useAsync.js'
 
 const createRouter = createBrowserRouter(
   [
@@ -46,39 +47,8 @@ const createRouter = createBrowserRouter(
 )
 
 const Main = () => {
-  useEffect(async () => {
-    awakeServerRecursion();
-  }, [])
-
-  // Add a retry function with delay
-  const retryWithDelay = (fn, retries = 5, delay = 10000) => {
-    return new Promise((resolve, reject) => {
-      const attempt = (remainingAttempts) => {
-        fn()
-          .then(resolve)
-          .catch((error) => {
-            if (remainingAttempts === 0) {
-              reject(error); // If no retries left, throw error
-            } else {
-              console.log(`Retrying... Attempts left: ${remainingAttempts}`);
-              setTimeout(() => attempt(remainingAttempts - 1), delay); // Wait before retrying
-            }
-          });
-      };
-      attempt(retries); // Start first attempt
-    });
-  };
-
-  // Awake the server with retries
-  const awakeServerRecursion = async () => {
-    try {
-      await retryWithDelay(awakeServer, 5, 10000); // Retry 5 times, with 10s delay
-      console.log("Server is awake!");
-    } catch (error) {
-      console.error("Error waking up server:", error);
-    }
-  };
-
+  const {loading, error, value} = useAsync(awakeServer);
+  
   return (
     <StrictMode>
       <RouterProvider router={createRouter}/>
