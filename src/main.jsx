@@ -9,6 +9,7 @@ import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
 import { awakeServer } from '../services/users.js'
+import { useAsync } from '../hooks/useAsync.js'
 
 const createRouter = createBrowserRouter(
   [
@@ -46,10 +47,8 @@ const createRouter = createBrowserRouter(
 )
 
 const Main = () => {
-  useEffect(() => {
-    awakeServer()
-  }, [])
-
+  const {loading, error, value} = useAsync(awakeServer);
+  
   return (
     <StrictMode>
       <RouterProvider router={createRouter}/>
