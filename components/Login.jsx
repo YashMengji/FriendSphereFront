@@ -19,9 +19,10 @@ function Login() {
     .then(user => {
       setUsername("");
       setPassword("");
-      setShowLogoutBtn(true);
+      console.log(user);
       if (user) {
         // Navigate to /home on successful login
+        setShowLogoutBtn(true);
         navigate("/home");
         // Refresh the page
         window.location.reload();
