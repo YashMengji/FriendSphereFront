@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://friendsphereback.onrender.com/",
+  baseURL: "https://friendsphereback.onrender.com/",
   withCredentials: true
 });
 
