@@ -10,7 +10,6 @@ function App(){
   const navigate = useNavigate();
   const location = useLocation(); // Get current location (route)
 
-
   useEffect(() => {
     const token = Cookies.get('token');
     if (location.pathname == "/") {
