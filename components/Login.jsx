@@ -3,6 +3,7 @@ import { useAsyncFn } from '../hooks/useAsync';
 import { checkUser } from '../services/users';
 import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import { useUser } from '../contexts/UserContext';
+import { useEffect } from 'react';
 
 function Login() {
 
@@ -13,20 +14,45 @@ function Login() {
   const {setShowLogoutBtn} = useUser();
   const navigate = useNavigate(); // Initialize navigate
 
-  function onUserLogin(e){
-    e.preventDefault(); // Prevent default form submission
-    checkUserFn.execute({username, password})
-    .then(user => {
-      setUsername("");
-      setPassword("");
-      setShowLogoutBtn(true);
-      if (user) {
-        // Navigate to /home on successful login
-        navigate("/home");
-        // Refresh the page
-        window.location.reload();
-      }
-    })
+  // DEPLOYMENT ONLY
+  useEffect(() => {
+    console.log("Browser Cookies After Login:", document.cookie);
+  }, [checkUserFn.value]); // Run this when the API response is received
+  
+
+  // function onUserLogin(e){
+  //   e.preventDefault(); // Prevent default form submission
+  //   checkUserFn.execute({username, password})
+  //   .then(user => {
+  //     setUsername("");
+  //     setPassword("");
+  //     console.log(user);
+  //     if (user) {
+  //       // Navigate to /home on successful login
+  //       setShowLogoutBtn(true);
+  //       navigate("/home");
+  //       // Refresh the page
+  //       // window.location.reload();
+  //     }
+  //   })
+  // }
+  function onUserLogin(e) {
+    e.preventDefault();
+    console.log("Login Submitted with:", { username, password });
+    checkUserFn.execute({ username, password })
+      .then(user => {
+        console.log("User Logged In:", user);
+        setUsername("");
+        setPassword("");
+        if (user) {
+          setShowLogoutBtn(true);
+          console.log("Navigating to /home");
+          navigate("/home");
+        }
+      })
+      .catch(error => {
+        console.error("Error During Login:", error);
+      });
   }
   
   return (

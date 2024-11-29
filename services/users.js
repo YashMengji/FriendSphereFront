@@ -13,12 +13,28 @@ export function createUser({fname, lname, username, password, email}){
   })
 }
 
-export function checkUser({username, password}){
+// export function checkUser({username, password}){
+//   return makeRequests(`/login`, {
+//     method: "POST",
+//     data: {username, password},
+//   })
+// }
+export function checkUser({ username, password }) {
+  console.log("Attempting login with:", { username, password });
   return makeRequests(`/login`, {
     method: "POST",
-    data: {username, password},
+    data: { username, password },
   })
+    .then((data) => {
+      console.log("Login Success:", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Login Error:", error);
+      throw error;
+    });
 }
+
 
 export function getUser(){
   return makeRequests(`/users`, {

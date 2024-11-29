@@ -48,6 +48,13 @@ const createRouter = createBrowserRouter(
 
 const Main = () => {
   const {loading, error, value} = useAsync(awakeServer);
+
+  useEffect(() => {
+    if (!loading && !error && value) {
+      // Redirect to the desired URL after the async operation completes successfully
+      window.location.href = "https://friendspherefront.onrender.com/";
+    }
+  }, [loading, error, value]);  // Depend on the async state
   
   return (
     <StrictMode>
