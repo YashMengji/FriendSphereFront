@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 :root{
-  --dark-color: #A555EC;
-  --light-color: #D09CFA;
-  --back-light-color: #f9e6ff;
+  --dark-color: #001660;
+  --light-color: #394867;
+  --back-light-color: #F1F6F9;
 }
 body{
   width: 100vw;
@@ -16,6 +16,10 @@ body{
   width: 100%;
   display: flex;
   justify-content: center;
+}
+::selection {
+  background-color: #ffeb3b; /* Light yellow background */
+  color: #001660; /* Dark blue text */
 }
 /* .app-div{
   display: flex;

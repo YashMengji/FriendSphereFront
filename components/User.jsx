@@ -16,21 +16,24 @@ function User({user, isFriend, isRequestSent}) {
   const unFriendFn = useAsyncFn(unFriend);
 
   function sendFriendRequest() {
+    buttonRef.current.style.backgroundColor = "#878787";
+    buttonRef.current.innerHTML = "Request Sent";
+    buttonRef.current.disabled = true;
     sendRequestFn.execute({receiverId: _id})
     .then(ack => {
       if(ack) {
-        buttonRef.current.style.backgroundColor = "green";
-        buttonRef.current.innerHTML = "Request Sent";
-        buttonRef.current.disabled = true;
       }
+    })
+    .catch(err => {
+      
     })
   }
   function onUnFriend() {
+    unFriendBtnRef.current.style.backgroundColor = "#1877F2";
+    unFriendBtnRef.current.innerHTML = "Add Friend";
     unFriendFn.execute({receiverId: _id})
     .then(ack => {
       if(ack) {
-        unFriendBtnRef.current.style.backgroundColor = "blue";
-        unFriendBtnRef.current.innerHTML = "Add Friend";
       }
     })
   }
@@ -47,12 +50,12 @@ function User({user, isFriend, isRequestSent}) {
       <div className="div-add-friend-btn">
         {
           (isFriend) ? (
-            <button ref={unFriendBtnRef} className="add-friend-btn" style={{backgroundColor: "green"}} onClick={onUnFriend}>
-              UnFriend
+            <button ref={unFriendBtnRef} className="add-friend-btn" style={{backgroundColor: "#878787"}} onClick={onUnFriend}>
+              Un-Friend
             </button>
           ) : (isRequestSent) ? (
-            <button className="add-friend-btn" style={{backgroundColor: "blue"}} disabled>
-              Request Sent
+            <button className="add-friend-btn" style={{backgroundColor: "#878787"}} disabled>
+              Requested
             </button>
           ) : (
             <button ref={buttonRef} className="add-friend-btn" onClick={sendFriendRequest}>

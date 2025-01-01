@@ -34,7 +34,7 @@ function UserContext({ children }) {
 
   function createLocalUser(user) {
     setUsers(prevUsers => [user, ...prevUsers]); 
-    console.log(users);
+    // console.log(users);
   }
 
   return (

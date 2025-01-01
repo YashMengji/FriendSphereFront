@@ -22,7 +22,7 @@ function Home() {
 
   useEffect(() => {
     if(search){
-      setSearchResults( users.filter(user => user.fname.toLowerCase().includes(search.toLowerCase()) || user.lname.toLowerCase().includes(search.toLowerCase()) || user.username.toLowerCase().includes(search.toLowerCase())) );
+      setSearchResults( users.filter(user => user.fname.toLowerCase().includes(search?.toLowerCase()) || user.lname.toLowerCase().includes(search?.toLowerCase()) || user.username.toLowerCase().includes(search?.toLowerCase())) );
       // console.log(searchResults);
     }
   }, [search]);
@@ -34,7 +34,7 @@ function Home() {
     <div className="home-div">
       {
           (search != "") ? (
-            console.log(searchResults),
+            // console.log(searchResults),
             searchResults.map(user => {
               if(friends.includes(user._id)){
                 return <User key={user._id} user={user} isFriend />

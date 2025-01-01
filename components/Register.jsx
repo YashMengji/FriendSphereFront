@@ -18,7 +18,7 @@ function Register() {
     e.preventDefault(); // Prevent default form submission
     createUserFn.execute({fname, lname, username, password, email})
     .then(user => {
-      console.log(user)
+      // console.log(user)
       setFname("");
       setLname(""); 
       setUsername("");
