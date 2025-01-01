@@ -1,60 +1,55 @@
 import { makeRequests } from "./makeRequests"
 
-export function awakeServer(){
-  return makeRequests(`/`, {
-    method: "GET",
-  })
-}
 
 export function createUser({fname, lname, username, password, email}){
-  return makeRequests(`/register`, {
+  return makeRequests(`/auth/register`, {
     method: "POST",
     data: {fname, lname, username, password, email},
   })
 }
 
 export function checkUser({username, password}){
-  return makeRequests(`/login`, {
+  return makeRequests(`/auth/login`, {
     method: "POST",
     data: {username, password},
   })
 }
 
+export function onLogout(){
+  return makeRequests(`/auth/logout`, {
+    method: "POST",
+  })
+}
+
 export function getUser(){
-  return makeRequests(`/users`, {
+  return makeRequests(`/u/users`, {
     method: "GET",
   })
 }
 
 export function sendRequest({receiverId}){ 
-  return makeRequests(`/sendRequest`, {
+  return makeRequests(`/u/sendRequest`, {
     method: "POST",
     data: {receiverId},
   })
 }
 
 export function acceptRequest({senderId}){ 
-  return makeRequests(`/acceptRequest`, {
+  return makeRequests(`/u/acceptRequest`, {
     method: "POST",
     data: {senderId},
   })
 }
 
 export function rejectRequest({senderId}){ 
-  return makeRequests(`/rejectRequest`, {
+  return makeRequests(`/u/rejectRequest`, {
     method: "POST",
     data: {senderId},
   })
 }
 
-export function onLogout(){
-  return makeRequests(`/logout`, {
-    method: "POST",
-  })
-}
-
 export function unFriend({receiverId}){
-  return makeRequests(`/unFriend`, {
+  return makeRequests(`/u/unFriend`, {
     method: "POST",
     data: {receiverId},
   })

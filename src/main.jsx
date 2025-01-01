@@ -4,12 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from './App.jsx'
 import Register from '../components/Register.jsx'
 import Login from '../components/Login.jsx'
-import UserContext from '../contexts/UserContext.jsx'
 import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
-import { awakeServer } from '../services/users.js'
-import { useAsync } from '../hooks/useAsync.js'
 
 const createRouter = createBrowserRouter(
   [
@@ -47,7 +44,6 @@ const createRouter = createBrowserRouter(
 )
 
 const Main = () => {
-  const {loading, error, value} = useAsync(awakeServer);
   
   return (
     <StrictMode>
