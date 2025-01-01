@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import User from './User'
 import { useUser } from '../contexts/UserContext'
 
-
 function Home() {
 
   const {users, setUsers, dToken, search} = useUser();
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState([]) ;
   const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequestsSent, setFriendRequestsSent] = useState([]);
-  const [searchResults, setSearchResults] = useState([]); 
+  const [searchResults, setSearchResults] = useState([]);
   console.log(users);
 
   useEffect(() => {
@@ -37,10 +36,10 @@ function Home() {
             // console.log(searchResults),
             searchResults.map(user => {
               if(friends.includes(user._id)){
-                return <User key={user._id} user={user} isFriend />
+                return <User key={user._id} user={user} isFriendGlobal />
               }
               else if(friendRequestsSent.includes(user._id)){
-                return <User key={user._id} user={user} isRequestSent />
+                return <User key={user._id} user={user} isRequestSentGlobal />
               }
               else if(user._id == dToken.userId){
                 return null;
@@ -52,10 +51,10 @@ function Home() {
           ) : (
             users.map(user => {
               if(friends.includes(user._id)){
-                return <User key={user._id} user={user} isFriend />
+                return <User key={user._id} user={user} isFriendGlobal  />
               }
               else if(friendRequestsSent.includes(user._id)){
-                return <User key={user._id} user={user} isRequestSent />
+                return <User key={user._id} user={user} isRequestSentGlobal />
               }
               else if(user._id == dToken.userId){
                 return null;

@@ -41,10 +41,10 @@ export function acceptRequest({senderId}){
   })
 }
 
-export function rejectRequest({senderId}){ 
+export function rejectRequest({receiverId}){ 
   return makeRequests(`/u/rejectRequest`, {
     method: "POST",
-    data: {senderId},
+    data: {receiverId},
   })
 }
 
@@ -54,3 +54,11 @@ export function unFriend({receiverId}){
     data: {receiverId},
   })
 }
+
+export function removeRequest({receiverId}) {
+  return makeRequests(`/u/removeRequest`, {
+    method: "POST",
+    data: {receiverId},
+  })
+}
+

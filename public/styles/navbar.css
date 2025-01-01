@@ -66,6 +66,23 @@
   padding-top: 4px; /* Uplifts the text a little */
 }
 
+.div-posts {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  transition: border-bottom 0.15s, padding-top 0.15s;
+}
+
+.div-posts:hover {
+  cursor: pointer;
+  padding-top: 4px; /* Uplifts the text a little */
+}
+
 .div-search-bar {
   display: flex;
   width: 630px;

@@ -40,6 +40,11 @@ function Navbar() {
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
         </div>
+        <div className="div-posts">
+          <Link className="section-link" to="/posts">
+            <i className="fa-solid fa-user fa-xl" style={{color: "#ffffff"}}></i>
+          </Link>
+        </div>
         <input className="search-bar" type="text" placeholder="Search" value={search} onChange={onSearchChange} />
         <button className="search-icon-button" >
           <img className="search-icon" src="/images/search.svg" />

@@ -1,41 +1,58 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import { useAsyncFn } from '../hooks/useAsync';
-import { sendRequest } from '../services/users';
+import { sendRequest, unFriend, removeRequest } from '../services/users';
 import { useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
-import { unFriend } from '../services/users';
 
-function User({user, isFriend, isRequestSent}) {
+function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
 
   const {_id, fname, lname, username} = user;
   const buttonRef = useRef(null);
   const unFriendBtnRef = useRef(null);
+  const requestedBtnRef = useRef(null);
   const {userId} = useUser();
+  const [isRequestSent, setIsRequestSent] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
+
+  useEffect(() => {
+    if(isFriendGlobal){
+      setIsFriend(true);
+    }
+    if(isRequestSentGlobal){
+      setIsRequestSent(true);
+    }
+    
+  }, [isFriendGlobal, isRequestSentGlobal])
+
 
   const sendRequestFn = useAsyncFn(sendRequest)
   const unFriendFn = useAsyncFn(unFriend);
+  const removeRequestFn = useAsyncFn(removeRequest);
 
   function sendFriendRequest() {
-    buttonRef.current.style.backgroundColor = "#878787";
-    buttonRef.current.innerHTML = "Request Sent";
-    buttonRef.current.disabled = true;
     sendRequestFn.execute({receiverId: _id})
-    .then(ack => {
-      if(ack) {
-      }
-    })
-    .catch(err => {
-      
-    })
+      .then((ack) => {
+        if(ack){
+          setIsRequestSent(true);
+        }
+      })
   }
   function onUnFriend() {
-    unFriendBtnRef.current.style.backgroundColor = "#1877F2";
-    unFriendBtnRef.current.innerHTML = "Add Friend";
     unFriendFn.execute({receiverId: _id})
-    .then(ack => {
-      if(ack) {
-      }
-    })
+      .then((ack) => {
+        if(ack){
+          setIsFriend(false);
+        }
+      })
+  }
+  function onRemoveRequest() {
+    removeRequestFn.execute({receiverId: _id})
+      .then((ack) => {
+        if(ack){
+          setIsRequestSent(false);
+        }
+      })
   }
 
   return (
@@ -50,15 +67,15 @@ function User({user, isFriend, isRequestSent}) {
       <div className="div-add-friend-btn">
         {
           (isFriend) ? (
-            <button ref={unFriendBtnRef} className="add-friend-btn" style={{backgroundColor: "#878787"}} onClick={onUnFriend}>
+            <button ref={unFriendBtnRef} className="add-friend-btn" style={{backgroundColor: "#878787"}} onClick={onUnFriend} disabled={unFriendFn.loading}>
               Un-Friend
             </button>
           ) : (isRequestSent) ? (
-            <button className="add-friend-btn" style={{backgroundColor: "#878787"}} disabled>
+            <button ref={requestedBtnRef} className="add-friend-btn" style={{backgroundColor: "#878787"}} onClick={onRemoveRequest} disabled={removeRequestFn.loading} >
               Requested
             </button>
           ) : (
-            <button ref={buttonRef} className="add-friend-btn" onClick={sendFriendRequest}>
+            <button ref={buttonRef} className="add-friend-btn" onClick={sendFriendRequest} disabled={sendRequestFn.loading}> 
               Add Friend
             </button>
           )

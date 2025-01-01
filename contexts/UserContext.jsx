@@ -33,8 +33,7 @@ function UserContext({ children }) {
   }, [value]);
 
   function createLocalUser(user) {
-    setUsers(prevUsers => [user, ...prevUsers]); 
-    // console.log(users);
+    setUsers(prevUsers => [{ ...user }, ...prevUsers]);
   }
 
   return (

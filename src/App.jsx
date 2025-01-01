@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'; // Import js-cookie to easily manage cookies
 import { useNavigate } from 'react-router-dom';
 import UserContext from "../contexts/UserContext";
 import { useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
 
 function App(){
 
@@ -21,7 +22,9 @@ function App(){
 
   return (
     <>   
+
       <UserContext>
+        <ToastContainer />
         <Navbar/>
         <Outlet/>
       </UserContext>

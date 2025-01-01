@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAsyncFn } from '../hooks/useAsync';
 import { createUser } from '../services/users';
 import { useUser } from '../contexts/UserContext';
+import { toast } from 'react-toastify';
 
 function Register() {
 
@@ -25,6 +26,7 @@ function Register() {
       setPassword("");
       setEmail("");
       createLocalUser(user);
+      toast.success('User Registered successfully!', { position: 'top-right', autoClose: 3000 });
     })
   }
   
