@@ -9,7 +9,7 @@ function Home() {
   const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequestsSent, setFriendRequestsSent] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  console.log(users);
+  // console.log(users);
 
   useEffect(() => {
     const currentUser = users.find(user => user._id === dToken.userId);

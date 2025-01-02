@@ -11,7 +11,7 @@
 }
 body{
   width: 100vw;
-  overflow-x: clip;
+  /* overflow-x: clip; */
 }
 #root{
   width: 100%;
