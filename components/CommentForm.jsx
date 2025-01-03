@@ -13,7 +13,7 @@ function CommentForm({loading, error, initialValue="", autoFocus=false, onSubmit
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='comment-form'>
       <div className="comment-form-row">
         <textarea
           autoFocus= {autoFocus}

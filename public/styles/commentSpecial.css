@@ -13,6 +13,11 @@
   margin-bottom: .5rem;
 }
 
+.comment-form{
+  position: sticky;
+  top: 0;
+}
+
 .comment-form-row {
   display: flex;
   gap: .5rem;
