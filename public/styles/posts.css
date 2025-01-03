@@ -78,14 +78,16 @@
   position: absolute;
   top: 50px;
   left: 0px;
+  bottom: 40px;
   display: flex;
   flex-direction: column;
   background-color: rgba(87, 87, 87, 0.634);
   backdrop-filter: blur(5px); 
   width: 100%;
-  height: 80%;
   border-radius: 18px;
   padding: 10px 15px;
+  overflow: auto;
+  scrollbar-width: thin;
 }
 .div-comment-section-heading{
   display: flex;

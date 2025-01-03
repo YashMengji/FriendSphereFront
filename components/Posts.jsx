@@ -9,27 +9,15 @@ import {usePost} from "../contexts/PostContext"
 import CommentList from "./CommentList";
 
 function Posts() {
-  // const {loading, error, value: posts} = useAsync(getPosts)
 
   const [showComments, setShowComments] = useState(false)
 
-  const posts = [
-    {
-      title: 'Post 1',
-      body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quis officiis nam debitis doloribus. Nam excepturi cumque, officia beatae laborum quas, reprehenderit nesciunt sit voluptatem perspiciatis iure consequatur similique architecto? Similique, nisi blanditiis!',
-      _id: '1'
-    }
-  ]
-
-  const {post, rootComments, createLocalComment} = usePost();
+  const {post, posts, rootComments, createLocalComment, getCommentPerPost} = usePost();
   const {loading, error, execute: createCommentFn} = useAsyncFn(createComment);
 
   function onCommentCreate(message) {
-    return createCommentFn({postId: post.id, message}).then( createLocalComment )
+    return createCommentFn({postId: post._id, message}).then( createLocalComment )
   }
-
-  // if(loading) return <h1>Loading</h1>
-  // if(error) return <h1 className='error-msg'>{error}</h1>
 
   return (
     <div className="posts-div">
@@ -58,7 +46,7 @@ function Posts() {
                 <div className="div-post-like">
                   <i className="fa-regular fa-heart fa-xl"></i>
                 </div>
-                <div className="div-post-comment">
+                <div className="div-post-comment" onClick={() => {getCommentPerPost(post._id)}}>
                   {
                     !showComments ? (<i className="fa-regular fa-comment fa-xl " onClick={() => setShowComments(true)}></i>) :
                       (<i className="fa-solid fa-comment fa-xl" onClick={() => setShowComments(false)}></i>)

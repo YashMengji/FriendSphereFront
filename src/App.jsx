@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from "../contexts/UserContext";
 import { useEffect } from "react";
 import { ToastContainer } from 'react-toastify';
+import PostContext from "../contexts/PostContext";
 
 function App(){
 
@@ -24,9 +25,11 @@ function App(){
     <>   
 
       <UserContext>
-        <ToastContainer />
-        <Navbar/>
-        <Outlet/>
+        <PostContext>
+          <ToastContainer />
+          <Navbar/>
+          <Outlet/>
+        </PostContext>
       </UserContext>
     </>
   )

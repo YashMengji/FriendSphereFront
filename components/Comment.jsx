@@ -59,7 +59,7 @@ function Comment({_id, message, userId, createdAt}) {
     <>
       <div className="comment">
         <div className="header">
-          <span className="name">{userId.name}</span>
+          <span className="name">{userId?.username}</span>
           <span className="date">{dateFormatter.format(Date.parse(createdAt))}</span>
         </div>
         { isEditing ? 
@@ -82,7 +82,7 @@ function Comment({_id, message, userId, createdAt}) {
             Icon={FaReply} 
             aria-label={isReplying ? "Cancel Reply" : "Reply"} 
           />
-          {loggedInUserId == userId._id  && ( // Logic to display edit button to owner of comment
+          {loggedInUserId == userId?._id  && ( // Logic to display edit button to owner of comment
             <IconBtn 
               onClick={() => setIsEditing(prev => !prev)} 
               isActive={isEditing} 
@@ -90,7 +90,7 @@ function Comment({_id, message, userId, createdAt}) {
               aria-label={isEditing ? "Cancel Edit" : "Edit"} 
             />
           )}
-          {loggedInUserId == userId._id  && ( // Logic, to display delete button, to owner of comment
+          {loggedInUserId == userId?._id  && ( // Logic, to display delete button, to owner of comment
             <IconBtn 
               disabled = {deleteCommentFn.loading}
               onClick={onCommentDelete} 

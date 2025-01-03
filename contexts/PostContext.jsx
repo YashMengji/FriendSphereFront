@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import { useParams } from "react-router-dom";
 import { useAsync } from "../hooks/useAsync";
-import { getOnePost } from "../services/posts";
+import { getPosts } from "../services/posts";
 import { useState } from 'react';
 
 export const postContext = createContext();
@@ -12,9 +12,9 @@ export function usePost(){
 
 // Here childern is automatically passed when any <PostContext> <Post/> <PostContext /> 
 function PostContext({children}) {
-  
   const {id} = useParams();
-  const {loading, error, value: post} =  useAsync(() => getOnePost(id), [id]);
+  const {loading, error, value: posts} =  useAsync(getPosts);
+  const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,7 @@ function PostContext({children}) {
     setComments(post.comments);
   }, [post?.comments]);
 
-  useEffect(() => {
-    console.log(comments);
-  }, [comments])
+  // console.log(post)
 
   const commentsByParentId = useMemo(() => {
     if(comments == null) return []
@@ -39,6 +37,10 @@ function PostContext({children}) {
 
   function getReplies(parentId){
     return commentsByParentId[parentId]
+  }
+
+  function getCommentPerPost(postId){
+    setPost(posts.find(post => post._id == postId))
   }
 
   function createLocalComment(comment) {
@@ -57,7 +59,7 @@ function PostContext({children}) {
     });  
   }
   function deleteLocalComment(commentId) {
-    console.log(comments);
+    // console.log(comments);
     setComments(prevComments => {
       return prevComments.filter(comment => comment._id !== commentId); // Filter out the comment to delete
     });
@@ -67,12 +69,14 @@ function PostContext({children}) {
   return (
     <postContext.Provider value={
         {
-          post: {id, ...post}, //id is const defined above...doing this because on server side we haven't extracted _id from database and sent along with post object
+          post: post, //id is const defined above...doing this because on server side we haven't extracted _id from database and sent along with post object
+          posts,
           rootComments: commentsByParentId[undefined],
           getReplies,
           createLocalComment,
           updateLocalComment,
           deleteLocalComment,
+          getCommentPerPost
         }                        
       }
     > 
