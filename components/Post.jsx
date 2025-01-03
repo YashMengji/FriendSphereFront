@@ -11,7 +11,7 @@ import { useMemo } from 'react';
 
 function Post({post}) {
 
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState(true)
   const [comments, setComments] = useState([]);
   const [rootComments, setRootComments] = useState([]);
 
@@ -22,7 +22,6 @@ function Post({post}) {
     setComments(post.comments);
   }, [post?.comments]);
 
-  
   const commentsByParentId = useMemo(() => {
     if(comments == null) return []
     const group = {};
@@ -92,7 +91,7 @@ function Post({post}) {
         <div className="div-post-like">
           <i className="fa-regular fa-heart fa-xl"></i>
         </div>
-        <div className="div-post-comment" onClick={() => { getCommentPerPost(post._id) }}>
+        <div className="div-post-comment">
           {
             !showComments ? (<i className="fa-regular fa-comment fa-xl " onClick={() => setShowComments(true)}></i>) :
               (<i className="fa-solid fa-comment fa-xl" onClick={() => setShowComments(false)}></i>)
@@ -111,7 +110,13 @@ function Post({post}) {
           />
           {rootComments != null && rootComments.length && (
             <div className="mt-4">
-              <CommentList comments={rootComments} />
+              <CommentList
+                comments={rootComments}
+                getReplies={getReplies}
+                createLocalComment={createLocalComment}
+                updateLocalComment={updateLocalComment}
+                deleteLocalComment={deleteLocalComment}
+              />
             </div>
           )}
         </div>

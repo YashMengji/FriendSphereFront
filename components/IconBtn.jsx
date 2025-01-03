@@ -3,7 +3,7 @@ import React from 'react'
 function IconBtn({Icon, color, isActive, children, ...props}) {
   return (
     <button 
-      className={`btn icon-btn ${isActive ? "icon-btn-active" : ""} ${color || ""}`}
+      className={`btn icon-btn ${isActive ? "icon-btn-active" : ""} ${color || "white"}`}
       {...props}
     >
       <span className={`${children != null ? "mr-1" : ""}`}>

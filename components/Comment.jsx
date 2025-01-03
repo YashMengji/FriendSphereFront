@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { usePost } from '../contexts/PostContext';
 import IconBtn from './IconBtn';
@@ -16,17 +16,16 @@ const dateFormatter = new Intl.DateTimeFormat(undefined /* location*/, {
   timeStyle: "short"
 }); //Intilizing format object
 
-function Comment({_id, message, userId, createdAt}) {
+function Comment({_id, message, userId, postId, createdAt, getReplies = () => [], createLocalComment, updateLocalComment, deleteLocalComment}) {
 
   // Create special api to fetch currently logged in user (id form cookies) 
   // (to display edit comment of logged in user only) 
   // Cookies.get('userId') // to get userId from cookies
-  const loggedInUserId = "66db4ebebd2dcd940dedd973"; 
+  const loggedInUserId = "66ea9b5ed0e6480aeb3607b6"; 
 
-  const {id} = useParams();
-  const {getReplies, createLocalComment, updateLocalComment, deleteLocalComment} = usePost();
-  const createCommentFn = useAsyncFn(createComment); //This function returns {loading, error, execute} states
+  const createCommentFn = useAsyncFn(createComment); // function returns {loading, error, execute} states
   const childComments = getReplies(_id);
+  // const childComments = [];
   const updateCommentFn = useAsyncFn(updateComment);
   const deleteCommentFn = useAsyncFn(deleteComment);
 
@@ -35,21 +34,21 @@ function Comment({_id, message, userId, createdAt}) {
   const [isEditing, setIsEditing] = useState(false);
 
   function onCommentReply(message){
-    return createCommentFn.execute({postId: id, message, parentId: _id})  
+    return createCommentFn.execute({postId, message, parentId: _id})  
     .then( comment => {
       setIsReplying(false);
       createLocalComment(comment);
     })
   }
   function onCommentUpdate(message){
-    return updateCommentFn.execute({postId: id, message, commentId: _id})  
+    return updateCommentFn.execute({postId, message, commentId: _id})  
     .then( updatedComment => {
       setIsEditing(false);
       updateLocalComment(_id, message);
     })
   }
   function onCommentDelete() {
-    return deleteCommentFn.execute({postId: id, commentId: _id})  
+    return deleteCommentFn.execute({postId, commentId: _id})  
     .then(({_id: commentId}) => {
       deleteLocalComment(commentId);
     })
@@ -119,7 +118,13 @@ function Comment({_id, message, userId, createdAt}) {
           <div className={`nested-comments-stack ${areChildrenHidden ? "hide" : ""}`}>
             <button className='collapse-line' aria-label='Hide Replies' onClick={() => {setAreChildrenHidden(true)}} />
             <div className='nested-comments'>
-              <CommentList comments={childComments}/>
+              <CommentList 
+                comments={childComments}
+                getReplies={getReplies} 
+                createLocalComment={createLocalComment} 
+                updateLocalComment={updateLocalComment} 
+                deleteLocalComment={deleteLocalComment} 
+              />
             </div>
           </div>
           <button 

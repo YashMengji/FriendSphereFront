@@ -9,6 +9,10 @@
   margin: 2rem auto;
 }
 
+.error-msg {
+  color: hsl(0, 100%, 67%);
+}
+
 .comments-title {
   margin-bottom: .5rem;
 }
@@ -16,6 +20,7 @@
 .comment-form{
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .comment-form-row {
@@ -136,6 +141,10 @@
   --hue: 0;
 }
 
+.white{
+  color: white;
+}
+
 .icon-btn-active {
   position: relative;
 }
@@ -169,12 +178,14 @@
 
 .comment .header .name {
   font-weight: bold;
+  color: #cfcfcf;
 }
 
 .comment .message {
   white-space: pre-wrap;
   margin-left: .5rem;
   margin-right: .5rem;
+  color: white;
 }
 
 .comment .footer {
@@ -189,4 +200,8 @@
 
 .btn[disabled] {
   --color: hsl(var(--hue), 20%, 74%);
+}
+
+.date{
+  color: #cfcfcf;
 }
