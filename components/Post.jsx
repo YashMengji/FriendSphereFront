@@ -11,28 +11,12 @@ import { useMemo } from 'react';
 
 function Post({post}) {
 
-  const [showComments, setShowComments] = useState(true)
+  const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState([]);
   const [rootComments, setRootComments] = useState([]);
   const elementsRef = useRef();
 
   const {loading, error, execute: createCommentFn} = useAsyncFn(createComment);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      
-        const rect = elementsRef.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          elementsRef.current.classList.add('show');
-        }
-     
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if(post?.comments == null) return undefined;
@@ -108,10 +92,10 @@ function Post({post}) {
         <div className="div-post-like">
           <i className="fa-regular fa-heart fa-xl post-like"></i>
         </div>
-        <div className="div-post-comment">
+        <div className="div-post-comment" onClick={() => setShowComments(p => !p)}>
           {
-            !showComments ? (<i className="fa-regular fa-comment fa-xl post-comment" onClick={() => setShowComments(true)}></i>) :
-              (<i className="fa-solid fa-comment fa-xl post-comment" onClick={() => setShowComments(false)}></i>)
+            !showComments ? (<i className="fa-regular fa-comment fa-xl post-comment" ></i>) :
+              (<i className="fa-solid fa-comment fa-xl post-comment" ></i>)
           }
         </div>
       </div>
