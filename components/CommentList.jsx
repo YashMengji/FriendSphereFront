@@ -12,6 +12,7 @@ function CommentList({comments, getReplies, createLocalComment, updateLocalComme
             createLocalComment={createLocalComment} 
             updateLocalComment={updateLocalComment} 
             deleteLocalComment={deleteLocalComment} 
+
           />
         </div>
       )}

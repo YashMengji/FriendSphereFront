@@ -68,6 +68,7 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
             onSubmit={onCommentUpdate}
             loading={updateCommentFn.loading}
             error={updateCommentFn.error}
+            zeroZ
           /> : 
           <div className="message">{message}</div> 
         }
@@ -110,6 +111,7 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
             loading={createCommentFn.loading}
             error={createCommentFn.error}
             onSubmit={onCommentReply} 
+            zeroZ
           />
         </div>
       )}      
@@ -128,7 +130,7 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
             </div>
           </div>
           <button 
-            className={`btn mt-1 ${!areChildrenHidden ? "hide" : ""}`}
+            className={`btn mt-1 show-replies-btn ${!areChildrenHidden ? "hide" : ""}`}
             onClick={() => {setAreChildrenHidden(false)}}
           >
             Show Replies

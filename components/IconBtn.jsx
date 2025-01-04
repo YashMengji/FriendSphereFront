@@ -3,13 +3,15 @@ import React from 'react'
 function IconBtn({Icon, color, isActive, children, ...props}) {
   return (
     <button 
-      className={`btn icon-btn ${isActive ? "icon-btn-active" : ""} ${color || "white"}`}
+      className={`btn icon-btn ${isActive ? "icon-btn-active" : ""} ${color || ""}`}
       {...props}
     >
-      <span className={`${children != null ? "mr-1" : ""}`}>
+      <span className={`${children != null ? "mr-1" : ""}`} >
         <Icon />
       </span>
-      {children}
+      <div className="div-like-count" style={{color: "white"}}>
+        {children}
+      </div>
     </button>
   )
 }

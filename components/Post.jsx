@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useAsync, useAsyncFn } from '../hooks/useAsync'
 import { createComment } from "../services/comments";
 import CommentForm from "./CommentForm";
@@ -14,8 +14,25 @@ function Post({post}) {
   const [showComments, setShowComments] = useState(true)
   const [comments, setComments] = useState([]);
   const [rootComments, setRootComments] = useState([]);
+  const elementsRef = useRef();
 
   const {loading, error, execute: createCommentFn} = useAsyncFn(createComment);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      
+        const rect = elementsRef.current.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          elementsRef.current.classList.add('show');
+        }
+     
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if(post?.comments == null) return undefined;
@@ -89,16 +106,16 @@ function Post({post}) {
       </div>
       <div className="div-post-activity-bar">
         <div className="div-post-like">
-          <i className="fa-regular fa-heart fa-xl"></i>
+          <i className="fa-regular fa-heart fa-xl post-like"></i>
         </div>
         <div className="div-post-comment">
           {
-            !showComments ? (<i className="fa-regular fa-comment fa-xl " onClick={() => setShowComments(true)}></i>) :
-              (<i className="fa-solid fa-comment fa-xl" onClick={() => setShowComments(false)}></i>)
+            !showComments ? (<i className="fa-regular fa-comment fa-xl post-comment" onClick={() => setShowComments(true)}></i>) :
+              (<i className="fa-solid fa-comment fa-xl post-comment" onClick={() => setShowComments(false)}></i>)
           }
         </div>
       </div>
-      <div className={`div-post-comment-section ${showComments ? "" : "display-none"}`}>
+      <div className={`div-post-comment-section ${showComments ? "show" : ""} fade-in`} ref={elementsRef}>
         <div className="div-comment-section-heading">
           Comments
         </div>

@@ -22,6 +22,9 @@
   top: 0;
   z-index: 10;
 }
+.zero-z-index{
+  z-index: 0;
+}
 
 .comment-form-row {
   display: flex;
@@ -84,7 +87,7 @@
 
 .collapse-line:hover::before,
 .collapse-line:focus-visible::before {
-  background-color: hsl(235, 100%, 60%);
+  background-color: white;
 }
 
 .collapse-line::before {
@@ -93,8 +96,8 @@
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 1px;
-  background-color: hsl(235, 50%, 74%);
+  width: 1.5px;
+  background-color: rgb(213, 213, 213);
   transition: background-color 100ms ease-in-out;
 }
 
@@ -103,8 +106,9 @@
 }
 
 .btn {
-  --hue: 235;
-  --color: hsl(var(--hue), 100%, 67%);
+  --light: 99%;
+  --color: hsl(0, 100%, var(--light));
+  color: hsl(0, 100%, 62%);
   padding: .5em 1em;
   background: var(--color);
   border: none;
@@ -116,7 +120,7 @@
 
 .btn:hover,
 .btn:focus-visible {
-  --color: hsl(var(--hue), 100%, 74%);
+  --color: hsl(0, 100%, var(--light));
 }
 
 .btn.icon-btn {
@@ -133,12 +137,12 @@
 
 .icon-btn:hover,
 .icon-btn:focus-visible {
-  --color: hsl(var(--hue), 100%, 74%);
+  --color: hsl(0, 100%, var(--light));
 }
 
 .icon-btn-active,
 .icon-btn.danger {
-  --hue: 0;
+  --light: 50%;
 }
 
 .white{
@@ -169,7 +173,7 @@
 }
 
 .comment .header {
-  color: hsl(235, 50%, 67%);
+  color: hsl(0, 100%, 50%);
   display: flex;
   justify-content: space-between;
   margin-bottom: .25rem;
@@ -178,7 +182,7 @@
 
 .comment .header .name {
   font-weight: bold;
-  color: #cfcfcf;
+  color: #c5c5c5;
 }
 
 .comment .message {
@@ -199,9 +203,18 @@
 }
 
 .btn[disabled] {
-  --color: hsl(var(--hue), 20%, 74%);
+  --color: hsl(0, 100%, var(--light));
 }
 
 .date{
   color: #cfcfcf;
+}
+
+.post-btn{
+  background-color: #F4BB44;
+  color: black;
+}
+.show-replies-btn{
+  background-color: #F4BB44;
+  color: black;
 }
