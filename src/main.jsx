@@ -8,6 +8,7 @@ import Home from '../components/Home.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
 import Posts from '../components/Posts.jsx'
+import CreatePost from '../components/CreatePost.jsx'
 
 const createRouter = createBrowserRouter(
   [
@@ -27,7 +28,7 @@ const createRouter = createBrowserRouter(
           path: '/home',
           element: (
             <ProtectedRoute>
-              <Home />
+              <Posts />
             </ProtectedRoute>
           ),
         },
@@ -40,10 +41,18 @@ const createRouter = createBrowserRouter(
           )
         }, 
         {
-          path: "/posts",
+          path: "/users",
           element: (
             <ProtectedRoute>
-              <Posts />
+              <Home />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "/create-post",
+          element: (
+            <ProtectedRoute>
+              <CreatePost />
             </ProtectedRoute>
           )
         }

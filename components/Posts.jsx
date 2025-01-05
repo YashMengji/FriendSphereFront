@@ -10,13 +10,13 @@ function Posts() {
 
 
 
-  const {post, posts, rootComments, createLocalComment} = usePost();
+  const {posts} = usePost();
 
 
   return (
     <div className="posts-div">
       {
-        posts.map((post) => {
+        posts?.map((post) => {
           return (
             <Post key={post._id} post={post}/>
           )

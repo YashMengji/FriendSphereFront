@@ -83,6 +83,23 @@
   padding-top: 4px; /* Uplifts the text a little */
 }
 
+.div-create-post{
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  transition: border-bottom 0.15s, padding-top 0.15s;
+}
+
+.div-create-post:hover{
+  cursor: pointer;
+  padding-top: 4px; /* Uplifts the text a little */
+}
+
 .div-search-bar {
   display: flex;
   width: 630px;
@@ -118,7 +135,7 @@
   border-style: solid;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
-  padding-top: 4px;
+  padding-top: 5px;
   padding-bottom: 2px;
   padding-left: 18px;
   padding-right: 18px;
@@ -201,4 +218,37 @@
   .nav-div{
     grid-template-columns: 16vw 1fr 100px;
   }
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 480px) {
+  .search-bar{
+    font-size: 13px;
+    padding-left: 5px;
+    height: 32px;
+  }
+  .search-icon-button {
+    background-color: rgba(237, 235, 235, 0.493);
+    border-width: 1px;
+    border-left: 0px;
+    border-color: rgb(204, 204, 204);
+    border-style: solid;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    padding-right: 1px;
+    margin-left: 0px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .search-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
 }

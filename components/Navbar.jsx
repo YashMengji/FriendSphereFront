@@ -41,8 +41,13 @@ function Navbar() {
           </Link>
         </div>
         <div className="div-posts">
-          <Link className="section-link" to="/posts">
+          <Link className="section-link" to="/users">
             <i className="fa-solid fa-user fa-xl" style={{color: "#ffffff"}}></i>
+          </Link>
+        </div>
+        <div className="div-create-post">
+          <Link className="section-link" to="/create-post">
+            <i className="fa-solid fa-pen-to-square fa-xl"></i>
           </Link>
         </div>
         <input className="search-bar" type="text" placeholder="Search" value={search} onChange={onSearchChange} />

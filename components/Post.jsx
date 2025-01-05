@@ -76,7 +76,8 @@ function Post({post}) {
           <img className='poster-img' src="/images/defaultProfileImg.png" alt="Avatar" />
         </div>
         <div className="div-poster-username">
-          YashMengji
+          {post?.comments?.userId?.username}
+          {console.log(post)}
         </div>
       </div>
       <div className="div-post-title">
