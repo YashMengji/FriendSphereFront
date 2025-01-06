@@ -8,7 +8,7 @@ import { onLogout } from '../services/users';
 
 function Navbar() {
 
-  const { search,  setSearch, dToken, showLogoutBtn, setShowLogoutBtn } = useUser();
+  const { search, setSearch, dToken, showLogoutBtn, setShowLogoutBtn } = useUser();
   const onLogoutFn = useAsyncFn(onLogout)
 
   const navigate = useNavigate();
@@ -18,10 +18,10 @@ function Navbar() {
   }
   function onLogoutUser(e) {
     onLogoutFn.execute()
-    .then(() => {
-      setShowLogoutBtn(false);
-      navigate("/login")
-    })
+      .then(() => {
+        setShowLogoutBtn(false);
+        navigate("/login")
+      })
   }
 
   return (
@@ -35,14 +35,19 @@ function Navbar() {
         </div>
       </div>
       <div className="div-nav-middle">
-        <div className="div-home">  
+        <div className="div-home">
           <Link className="section-link" to="/home">
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
         </div>
+        <div className="div-edit-account">
+          <Link className="section-link" to="/edit-account">
+            <i className="fa-solid fa-user-pen fa-lg"></i>
+          </Link>
+        </div>
         <div className="div-posts">
           <Link className="section-link" to="/users">
-            <i className="fa-solid fa-user fa-xl" style={{color: "#ffffff"}}></i>
+            <i className="fa-solid fa-user fa-xl" style={{ color: "#ffffff" }}></i>
           </Link>
         </div>
         <div className="div-create-post">
@@ -63,11 +68,11 @@ function Navbar() {
         </div>
         <div className="div-profile">
           {
-            ( showLogoutBtn) ? (
+            (showLogoutBtn) ? (
               // <Link className="section-link" to="/login">
-                <button className="sign-in-btn" onClick={onLogoutUser}>
-                  Logout
-                </button>
+              <button className="sign-in-btn" onClick={onLogoutUser}>
+                Logout
+              </button>
               // </Link>
             ) : (
               <Link to="/login" className="login-btn-link">

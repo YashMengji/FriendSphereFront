@@ -9,6 +9,7 @@ import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import Notification from '../components/Notification.jsx'
 import Posts from '../components/Posts.jsx'
 import CreatePost from '../components/CreatePost.jsx'
+import EditUser from '../components/EditUser.jsx'
 
 const createRouter = createBrowserRouter(
   [
@@ -53,6 +54,14 @@ const createRouter = createBrowserRouter(
           element: (
             <ProtectedRoute>
               <CreatePost />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "/edit-account",
+          element: (
+            <ProtectedRoute>
+              <EditUser />
             </ProtectedRoute>
           )
         }

@@ -62,3 +62,12 @@ export function removeRequest({receiverId}) {
   })
 }
 
+export function editUser(formData){
+  return makeRequests(`/u/editUser`, {
+    method: "PUT",
+    data: formData,
+    Headers: {
+      'Content-Type': 'multipart/form-data',
+    }
+  })
+}
