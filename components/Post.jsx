@@ -77,7 +77,6 @@ function Post({post}) {
         </div>
         <div className="div-poster-username">
           {post?.comments?.userId?.username}
-          {console.log(post)}
         </div>
       </div>
       <div className="div-post-title">

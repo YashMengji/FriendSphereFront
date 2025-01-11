@@ -15,6 +15,7 @@ function UserContext({ children }) {
 
   const [users, setUsers] = useState([])
   const [dToken, setDToken] = useState({});
+  const [logUser, setLogUser] = useState({});
   const [search, setSearch] = useState('');
   const {loading, error, value} = useAsync(getUser);
   const [showLogoutBtn, setShowLogoutBtn] = useState(Cookies.get('token') ? true : false);
@@ -22,9 +23,16 @@ function UserContext({ children }) {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      setDToken(jwtDecode(token));
+      const decodedToken = jwtDecode(token);
+      setDToken(decodedToken);
+      const loggedInUser = users.find(user => user._id === decodedToken.userId);
+      setLogUser(loggedInUser);
     }
-  },[])
+  },[users])
+
+  useEffect(() => {
+    console.log(logUser);
+  }, [logUser])
 
   useEffect(() => {
     if(value){
@@ -47,6 +55,7 @@ function UserContext({ children }) {
         setUsers,
         showLogoutBtn,
         setShowLogoutBtn,
+        logUser,
       }
     }
     >

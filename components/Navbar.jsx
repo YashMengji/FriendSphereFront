@@ -42,7 +42,7 @@ function Navbar() {
         </div>
         <div className="div-edit-account">
           <Link className="section-link" to="/edit-account">
-            <i className="fa-solid fa-user-pen fa-lg"></i>
+            <i className="fa-solid fa-user-pen fa-xl"></i>
           </Link>
         </div>
         <div className="div-posts">

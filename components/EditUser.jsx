@@ -8,26 +8,37 @@ import { useUser } from '../contexts/UserContext'
 import { createPost } from '../services/posts'
 
 function EditUser() {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [username, setUsername] = useState("");
+  const { users, setUsers, logUser } = useUser();
+
+  const [fname, setFname] = useState(logUser?.fname || "");
+  const [lname, setLname] = useState(logUser?.lname || "");
+  const [username, setUsername] = useState(logUser?.username || "");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(logUser?.email || "");
   const [image, setImage] = useState(null);
 
   const imageTextRef = useRef(null);
-  const { users, setUsers } = useUser();
 
   const editUserFn = useAsyncFn(editUser);
 
-  function onUserEdit() {
+  function onUserEdit(e) {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('fname', fname);
-    formData.append('lname', lname);
-    formData.append('username', username);
-    formData.append('password', password);
-    formData.append('email', email);
+    if(fname.trim() !== "" && fname.trim() !== logUser?.fname){
+      formData.append('fname', fname);
+    }
+    if(lname.trim() !== "" && lname.trim() !== logUser?.lname){
+      formData.append('lname', lname);
+    }
+    if(username.trim() !== "" && username.trim() !== logUser?.username){
+      formData.append('username', username);
+    }
+    if(password.trim() !== ""){
+      formData.append('password', password);
+    }
+    if(email.trim() !== "" && email.trim() !== logUser?.email){
+      formData.append('email', email);
+    }
     if (image) {
       formData.append('image', image);
     }
@@ -40,7 +51,7 @@ function EditUser() {
           setPassword("");
           setEmail("");
           setImage(null);
-          setUsers([...users, user]);
+          setUsers(prev => [...prev, user]);
           imageTextRef.current.innerText = 'Drop or Choose an image';
           toast.info('User Edited successfully!', { position: 'top-right', autoClose: 3000 });
         }
@@ -56,14 +67,14 @@ function EditUser() {
         <hr />
         <div className="div-account-content">
           <div className="div-account-img">
-            <img className='account-img' src="/images/defaultProfileImg.png" alt="" />
+            <img className='account-img' src={logUser.image} alt="" />
           </div>
           <div className="div-account-name">
             <div className="div-account-name-label">
               Name:
             </div>
             <div className="div-account-name-text">
-              John Doe
+              {logUser.fname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))} {logUser.lname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))}
             </div>
           </div>
           <div className="div-account-username">
@@ -71,7 +82,7 @@ function EditUser() {
               Username:
             </div>
             <div className="div-account-username-text">
-              johndoe
+              {logUser.username}
             </div>
           </div>
           <div className="div-account-email">
@@ -79,7 +90,7 @@ function EditUser() {
               Email:
             </div>
             <div className="div-account-email-text">
-              yash@gmail.com
+              {logUser.email}
             </div>
           </div>
         </div>
