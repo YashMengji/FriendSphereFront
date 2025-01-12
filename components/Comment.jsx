@@ -7,7 +7,8 @@ import CommentList from './CommentList';
 import { createComment, updateComment, deleteComment } from '../services/comments';
 import { useAsyncFn } from '../hooks/useAsync';
 import CommentForm from './CommentForm';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
+import { useUser } from '../contexts/UserContext';
 
 // import mongoose from 'mongoose';
 
@@ -21,7 +22,13 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
   // Create special api to fetch currently logged in user (id form cookies) 
   // (to display edit comment of logged in user only) 
   // Cookies.get('userId') // to get userId from cookies
-  const loggedInUserId = "66ea9b5ed0e6480aeb3607b6"; 
+
+  const {dToken} = useUser();
+  let loggedInUserId = "";
+  
+  useEffect(() => {
+    loggedInUserId = dToken?.userId;
+  }, [dToken]) 
 
   const createCommentFn = useAsyncFn(createComment); // function returns {loading, error, execute} states
   const childComments = getReplies(_id);

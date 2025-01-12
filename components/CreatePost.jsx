@@ -12,7 +12,7 @@ function CreatePost() {
   const imageTextRef = useRef(null);
   const { posts, setPosts } = usePost();
 
-  const createPostFn = useAsyncFn(createPost);
+  const createPostFn = useAsyncFn(createPost); 
 
   function onCreatePost(e) {
     e.preventDefault();
@@ -29,12 +29,12 @@ function CreatePost() {
         setContent('');
         setImage(null);
         imageTextRef.current.innerText = 'Drop or Choose an image';
-        setPosts([...posts, newPost]);
+        setPosts(prev => [...prev, newPost]);
         // console.log(posts);
         toast.success('Post created successfully!', { position: 'top-right', autoClose: 3000 });
       })
       .catch((error) => {
-        console.error('Error creating blog post:', error);
+        toast.error(error);
       });
 
   }

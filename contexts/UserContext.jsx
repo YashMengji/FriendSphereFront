@@ -31,7 +31,7 @@ function UserContext({ children }) {
   },[users])
 
   useEffect(() => {
-    console.log(logUser);
+    // console.log(logUser);
   }, [logUser])
 
   useEffect(() => {

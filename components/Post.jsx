@@ -71,32 +71,43 @@ function Post({post}) {
 
   return (
     <div className="div-post" key={post._id}>
-      <div className="div-poster-info">
-        <div className="div-poster-img">
-          <img className='poster-img' src="/images/defaultProfileImg.png" alt="Avatar" />
+      <div className="div-post-wrapper">
+        <div className="div-poster-info">
+          <div className="div-poster-img">
+            <img className='poster-img' src={`${post?.userId?.image || "/images/defaultProfileImg.png"}`} alt="Avatar" />
+            {/* <img className='poster-img' src="/images/defaultProfileImg.png" alt="Avatar" /> */}
+
+          </div>
+          <div className='div-poster-username'>
+            {post?.userId?.username}
+          </div>
         </div>
-        <div className="div-poster-username">
-          {post?.comments?.userId?.username}
+        <div className="div-post-title">
+          {post.title}
         </div>
-      </div>
-      <div className="div-post-title">
-        {post.title}
-      </div>
-      <div className="div-post-body">
-        {post.body}
-      </div>
-      <div className="div-post-img">
-        <img src="/images/image.png" alt="" className="post-img" />
+        <div className="div-post-body">
+          {post.body}
+        </div>
+        <div className="div-post-img">
+          {
+            post?.image && <img src={post.image} alt="" className="post-img" />
+          }
+        </div>
       </div>
       <div className="div-post-activity-bar">
-        <div className="div-post-like">
-          <i className="fa-regular fa-heart fa-xl post-like"></i>
+        <div className="div-post-like-comment">
+          <div className="div-post-like">
+            <i className="fa-regular fa-heart fa-xl post-like"></i>
+          </div>
+          <div className="div-post-comment" onClick={() => setShowComments(p => !p)}>
+            {
+              !showComments ? (<i className="fa-regular fa-comment fa-xl post-comment" ></i>) :
+                (<i className="fa-solid fa-comment fa-xl post-comment" ></i>)
+            }
+          </div>
         </div>
-        <div className="div-post-comment" onClick={() => setShowComments(p => !p)}>
-          {
-            !showComments ? (<i className="fa-regular fa-comment fa-xl post-comment" ></i>) :
-              (<i className="fa-solid fa-comment fa-xl post-comment" ></i>)
-          }
+        <div className="div-post-time">
+          {new Date(post.createdAt).toLocaleDateString()}&nbsp;{new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </div>
       </div>
       <div className={`div-post-comment-section ${showComments ? "show" : ""} fade-in`} ref={elementsRef}>
