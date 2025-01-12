@@ -40,9 +40,9 @@ function Navbar() {
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
         </div>
-        <div className="div-edit-account">
-          <Link className="section-link" to="/edit-account">
-            <i className="fa-solid fa-user-pen fa-xl"></i>
+        <div className="div-create-post">
+          <Link className="section-link" to="/create-post">
+            <i className="fa-solid fa-pen-to-square fa-xl"></i>
           </Link>
         </div>
         <div className="div-posts">
@@ -50,9 +50,9 @@ function Navbar() {
             <i className="fa-solid fa-user fa-xl" style={{ color: "#ffffff" }}></i>
           </Link>
         </div>
-        <div className="div-create-post">
-          <Link className="section-link" to="/create-post">
-            <i className="fa-solid fa-pen-to-square fa-xl"></i>
+        <div className="div-edit-account">
+          <Link className="section-link" to="/edit-account">
+            <i className="fa-solid fa-user-pen fa-xl"></i>
           </Link>
         </div>
         <input className="search-bar" type="text" placeholder="Search" value={search} onChange={onSearchChange} />

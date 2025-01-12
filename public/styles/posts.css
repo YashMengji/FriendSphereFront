@@ -20,7 +20,7 @@
   justify-content: space-between;
   width: 76%;
   min-height: 305px;
-  max-height: 450px;
+  max-height: 659px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px 20px;
@@ -35,12 +35,32 @@
 
 .div-poster-info {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 14px;
   width: 100%;
   /* background-color: rgb(255, 167, 167); */
   padding-bottom: 4px;
   border-bottom: 1px solid black;
+}
+
+.div-user-image-username-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.div-post-delete-btn{
+
+}
+.post-delete-btn{
+  background-color: #ec0000;
+  border: none;
+  color: white;
+  width: 80px;
+  height: 31px;
+  font-weight: 700;
+  border-radius: 6px;
+  box-shadow: 0px 3px 6px #9d9d9d;
+  cursor: pointer;
 }
 
 .div-poster-img {
@@ -68,6 +88,14 @@
   font-size: 32px;
   font-weight: 600;
   padding-top: 5px;
+  width: 100%;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
 }
 
 .div-post-body {
@@ -75,6 +103,7 @@
   overflow-y: auto;
   margin-top: 5px;
   scrollbar-width: thin;
+  word-break: break-word;
 }
 
 .div-post-img {

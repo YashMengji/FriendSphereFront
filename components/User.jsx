@@ -4,16 +4,18 @@ import { useAsyncFn } from '../hooks/useAsync';
 import { sendRequest, unFriend, removeRequest } from '../services/users';
 import { useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
+import { toast } from 'react-toastify';
 
 function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
 
-  const {_id, fname, lname, username} = user;
+  const {_id, fname, lname, username, image} = user;
   const buttonRef = useRef(null);
   const unFriendBtnRef = useRef(null);
   const requestedBtnRef = useRef(null);
   const {userId} = useUser();
   const [isRequestSent, setIsRequestSent] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
+  const {logUser} = useUser();
 
   useEffect(() => {
     if(isFriendGlobal){
@@ -37,6 +39,9 @@ function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
           setIsRequestSent(true);
         }
       })
+      .catch(error => {
+        toast.error(error, { position: 'top-right', autoClose: 3000 });
+      })
   }
   function onUnFriend() {
     unFriendFn.execute({receiverId: _id})
@@ -44,6 +49,9 @@ function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
         if(ack){
           setIsFriend(false);
         }
+      })
+      .catch(error => {
+        toast.error(error, { position: 'top-right', autoClose: 3000 });
       })
   }
   function onRemoveRequest() {
@@ -53,12 +61,15 @@ function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
           setIsRequestSent(false);
         }
       })
+      .catch(error => {
+        toast.error(error, { position: 'top-right', autoClose: 3000 });
+      })
   }
 
   return (
     <div className="user-div">
       <div className="div-profile-img">
-        <img src="/images/defaultProfileImg.png" className='profile-img'/>
+        <img src={image} className='profile-img'/>
       </div>
       <div className="div-profile-details"> 
         <div className="div-profile-name ">{fname} {lname}</div>

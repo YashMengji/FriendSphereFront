@@ -20,7 +20,7 @@ function Posts() {
       {
         posts?.map((post) => {
           return (
-            <Post key={post._id} post={post}/>
+            <Post key={post._id} post={post} posts={posts}/>
           )
         })
       }

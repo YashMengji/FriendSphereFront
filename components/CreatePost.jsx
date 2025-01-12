@@ -4,6 +4,7 @@ import { useAsyncFn } from '../hooks/useAsync';
 import { createPost } from '../services/posts';
 import { usePost } from '../contexts/PostContext';
 import { toast } from 'react-toastify';
+import { useUser } from '../contexts/UserContext';
 
 function CreatePost() {
   const [title, setTitle] = useState('');
@@ -11,6 +12,7 @@ function CreatePost() {
   const [content, setContent] = useState("");
   const imageTextRef = useRef(null);
   const { posts, setPosts } = usePost();
+  const {logUser} = useUser();
 
   const createPostFn = useAsyncFn(createPost); 
 
@@ -27,7 +29,7 @@ function CreatePost() {
         // console.log(newPost);
         setTitle('');
         setContent('');
-        setImage(null);
+        setImage(null)
         imageTextRef.current.innerText = 'Drop or Choose an image';
         setPosts(prev => [...prev, newPost]);
         // console.log(posts);
@@ -75,7 +77,7 @@ function CreatePost() {
             />
           </div>
           <div className="div-create-blog-post-button">
-            <button type='submit' className="create-blog-post-button">Post</button>
+            <button type='submit' className="create-blog-post-button" disabled={createPostFn.loading}>Post</button>
           </div>
         </form>
       </div>

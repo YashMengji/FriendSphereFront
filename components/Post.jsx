@@ -4,10 +4,12 @@ import { useAsync, useAsyncFn } from '../hooks/useAsync'
 import { createComment } from "../services/comments";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import { Link } from "react-router-dom"
-import { use } from 'react';
 import { useMemo } from 'react';
-
+import { useUser } from '../contexts/UserContext';
+import { usePost } from '../contexts/PostContext';
+import { set } from '@cloudinary/url-gen/actions/variable';
+import { toast } from 'react-toastify';
+import { deleteSinglePost } from '../services/posts';
 
 function Post({post}) {
 
@@ -15,8 +17,11 @@ function Post({post}) {
   const [comments, setComments] = useState([]);
   const [rootComments, setRootComments] = useState([]);
   const elementsRef = useRef();
-
+  const {logUser} = useUser();
+  const {posts, setPosts} = usePost();
+  
   const {loading, error, execute: createCommentFn} = useAsyncFn(createComment);
+  const deleteSinglePostFn = useAsyncFn(deleteSinglePost);
 
   useEffect(() => {
     if(post?.comments == null) return undefined;
@@ -68,19 +73,39 @@ function Post({post}) {
       return prevComments.filter(comment => comment._id !== commentId); // Filter out the comment to delete
     });
   }
+  function onDeleteSinglePost() {
+    deleteSinglePostFn.execute(post._id)
+    .then(() => {
+      setPosts(prevPosts => prevPosts.filter(p => p._id !== post._id))
+      toast.success('Post Deleted Successfully!', { position: 'top-right', autoClose: 3000 });
+    })
+    .catch(error => {
+      toast.error(error, { position: 'top-right', autoClose: 3000 });
+    })
+  }
 
   return (
     <div className="div-post" key={post._id}>
       <div className="div-post-wrapper">
         <div className="div-poster-info">
-          <div className="div-poster-img">
-            <img className='poster-img' src={`${post?.userId?.image || "/images/defaultProfileImg.png"}`} alt="Avatar" />
-            {/* <img className='poster-img' src="/images/defaultProfileImg.png" alt="Avatar" /> */}
+          <div className="div-user-image-username-wrapper">
+            <div className="div-poster-img">
+              <img className='poster-img' src={`${post?.userId?.image || "/images/defaultProfileImg.png"}`} alt="Avatar" />
+              {/* <img className='poster-img' src="/images/defaultProfileImg.png" alt="Avatar" /> */}
 
+            </div>
+            <div className='div-poster-username'>
+              {post?.userId?.username}
+            </div>
           </div>
-          <div className='div-poster-username'>
-            {post?.userId?.username}
-          </div>
+          {
+            logUser._id === post.userId._id && (
+              <div className="div-post-delete-btn">
+                <button disabled={deleteSinglePostFn.loading}  onClick={onDeleteSinglePost} className="post-delete-btn">Delete</button>
+              </div>
+            )
+          }
+         
         </div>
         <div className="div-post-title">
           {post.title}

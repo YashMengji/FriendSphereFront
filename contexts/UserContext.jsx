@@ -28,10 +28,10 @@ function UserContext({ children }) {
       const loggedInUser = users.find(user => user._id === decodedToken.userId);
       setLogUser(loggedInUser);
     }
-  },[users])
+  },[users]);
 
   useEffect(() => {
-    // console.log(logUser);
+    console.log(logUser);
   }, [logUser])
 
   useEffect(() => {

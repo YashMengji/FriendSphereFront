@@ -2,7 +2,8 @@ import React from 'react'
 import { useAsyncFn } from '../hooks/useAsync';
 import { acceptRequest , rejectRequest} from '../services/users';
 import { useRef } from 'react';
-
+import { useUser } from '../contexts/UserContext';
+import { toast } from 'react-toastify';
 
 function FriendRequest({user}) {
   const {_id, fname, lname, username} = user;
@@ -11,6 +12,7 @@ function FriendRequest({user}) {
 
   const acceptRequestFn = useAsyncFn(acceptRequest);
   const rejectRequestFn = useAsyncFn(rejectRequest);
+  const {logUser} = useUser();
 
   function acceptFriendRequest() {
     acceptRequestFn.execute({senderId: _id})
@@ -21,6 +23,9 @@ function FriendRequest({user}) {
         acceptButtonRef.current.disabled = true;
         rejectButtonRef.current.disabled = true;
       }
+    })
+    .catch(error => {
+      toast.error(error, { position: 'top-right', autoClose: 3000 });
     })
   }
   function rejectFriendRequest() {
@@ -33,12 +38,15 @@ function FriendRequest({user}) {
         acceptButtonRef.current.disabled = true;
       }
     })
+    .catch(error => {
+      toast.error(error, { position: 'top-right', autoClose: 3000 });
+    })
   }
 
   return (
     <div className="user-div"> 
       <div className="div-profile-img">
-        <img src="/images/defaultProfileImg.png" className='profile-img'/>
+        <img src={logUser?.image} className='profile-img'/>
       </div>
       <div className="div-profile-details"> 
         <div className="div-profile-name ">{fname} {lname}</div>

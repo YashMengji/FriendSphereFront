@@ -48,9 +48,17 @@
 .div-profile-name{
   font-weight: 600;
   font-size: 1.2rem;
+  white-space: nowrap;       /* Prevents text from wrapping to the next line */
+  overflow: hidden;          /* Hides the overflow text */
+  text-overflow: ellipsis;   /* Adds the ellipsis (...) */
+  width: 125px;
 }
 .div-profile-username{
-  color: rgb(226, 226, 226)
+  color: rgb(226, 226, 226);
+  white-space: nowrap;       /* Prevents text from wrapping to the next line */
+  overflow: hidden;          /* Hides the overflow text */
+  text-overflow: ellipsis;   /* Adds the ellipsis (...) */
+  width: 125px;
 }
 .div-add-friend-btn{
   display: flex;
@@ -72,13 +80,42 @@
 
 @media screen and (max-width: 768px) {
   .home-div{
-    width: 70%;
+    width: 85%;
+  }
+  .user-div{
+    height: 75px;
+    padding: 0;
+  }
+  .profile-img{
+    width: 50px;
+    height: 50px;
+  }
+  .div-profile-details{
+    justify-content: center;
+  }
+  .add-friend-btn{
+    width: 100px;
+    height: 39px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .home-div{
-    width: 90%;
+    width: 100%;
   }
-  
+  .user-div{
+    height: 75px;
+    padding: 0;
+  }
+  .profile-img{
+    width: 50px;
+    height: 50px;
+  }
+  .div-profile-details{
+    justify-content: center;
+  }
+  .add-friend-btn{
+    width: 100px;
+    height: 39px;
+  }
 }

@@ -22,6 +22,10 @@ function PostContext({children}) {
     setPosts(value);
   }, [value]);
 
+  useEffect(() => {
+    setPosts(prev => prev?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  }, [posts])
+
   // useEffect(() => {
   //   if(post?.comments == null) return undefined;
   //   setComments(post.comments);

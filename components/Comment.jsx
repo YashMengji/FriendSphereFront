@@ -24,10 +24,10 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
   // Cookies.get('userId') // to get userId from cookies
 
   const {dToken} = useUser();
-  let loggedInUserId = "";
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
   
   useEffect(() => {
-    loggedInUserId = dToken?.userId;
+    setLoggedInUserId(dToken?.userId);
   }, [dToken]) 
 
   const createCommentFn = useAsyncFn(createComment); // function returns {loading, error, execute} states

@@ -17,3 +17,9 @@ export function createPost(formData) {
     }
   });
 }
+
+export function deleteSinglePost(id){
+  return makeRequests(`/posts/${id}`, {
+    method: 'DELETE'
+  });
+}

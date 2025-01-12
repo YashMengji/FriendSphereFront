@@ -41,10 +41,10 @@ export function acceptRequest({senderId}){
   })
 }
 
-export function rejectRequest({receiverId}){ 
+export function rejectRequest({senderId}){ 
   return makeRequests(`/u/rejectRequest`, {
     method: "POST",
-    data: {receiverId},
+    data: {senderId},
   })
 }
 
