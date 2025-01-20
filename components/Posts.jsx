@@ -13,7 +13,7 @@ function Posts() {
   const {posts} = usePost();
 
   useEffect(() => {
-    // console.log(posts)
+    console.log(posts)
   }, [posts])
   return (
     <div className="posts-div">

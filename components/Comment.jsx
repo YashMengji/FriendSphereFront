@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { usePost } from '../contexts/PostContext';
 import IconBtn from './IconBtn';
-import {FaHeart, FaReply, FaEdit, FaTrash} from "react-icons/fa"
+import {FaHeart, FaRegHeart, FaReply, FaEdit, FaTrash} from "react-icons/fa"
 import CommentList from './CommentList';
 import { createComment, updateComment, deleteComment } from '../services/comments';
 import { useAsyncFn } from '../hooks/useAsync';
@@ -17,7 +17,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined /* location*/, {
   timeStyle: "short"
 }); //Intilizing format object
 
-function Comment({_id, message, userId, postId, createdAt, getReplies = () => [], createLocalComment, updateLocalComment, deleteLocalComment}) {
+function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt, getReplies = () => [], createLocalComment, updateLocalComment, deleteLocalComment}) {
 
   // Create special api to fetch currently logged in user (id form cookies) 
   // (to display edit comment of logged in user only) 
@@ -25,6 +25,7 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
 
   const {dToken} = useUser();
   const [loggedInUserId, setLoggedInUserId] = useState(null);
+  const [isLiked, setIsLiked] = useState(likedByMe);
   
   useEffect(() => {
     setLoggedInUserId(dToken?.userId);
@@ -80,8 +81,12 @@ function Comment({_id, message, userId, postId, createdAt, getReplies = () => []
           <div className="message">{message}</div> 
         }
         <div className="footer">
-          <IconBtn Icon={FaHeart} aria-label="Like">
-            2
+          <IconBtn 
+            onClick={() => {setIsLiked(prev => !prev)}}
+            Icon={isLiked ? FaHeart : FaRegHeart} 
+            aria-label={LikedByMe ? "Unlike" : "Like"}
+          >
+            {likeCount}
           </IconBtn>
           <IconBtn 
             onClick={() => setIsReplying(prev => !prev)} 
