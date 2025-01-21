@@ -22,6 +22,7 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
   // Create special api to fetch currently logged in user (id form cookies) 
   // (to display edit comment of logged in user only) 
   // Cookies.get('userId') // to get userId from cookies
+  // console.log(createdAt)
 
   const {dToken} = useUser();
   const [loggedInUserId, setLoggedInUserId] = useState(null);
@@ -84,7 +85,7 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
           <IconBtn 
             onClick={() => {setIsLiked(prev => !prev)}}
             Icon={isLiked ? FaHeart : FaRegHeart} 
-            aria-label={LikedByMe ? "Unlike" : "Like"}
+            aria-label={likedByMe ? "Unlike" : "Like"}
           >
             {likeCount}
           </IconBtn>
