@@ -34,7 +34,7 @@
 .message-input {
   flex-grow: 1;
   resize: none;
-  height: 70px;
+  height: 55px;
   border-radius: .5em;
   padding: .5em;
   font-size: inherit;

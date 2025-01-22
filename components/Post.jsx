@@ -10,6 +10,7 @@ import { usePost } from '../contexts/PostContext';
 import { set } from '@cloudinary/url-gen/actions/variable';
 import { toast } from 'react-toastify';
 import { deleteSinglePost } from '../services/posts';
+import { togglePostLike } from '../services/posts';
 
 function Post({post}) {
 
@@ -22,6 +23,7 @@ function Post({post}) {
   
   const {loading, error, execute: createCommentFn} = useAsyncFn(createComment);
   const deleteSinglePostFn = useAsyncFn(deleteSinglePost);
+  const togglePostLikeFn = useAsyncFn(togglePostLike);
 
   useEffect(() => {
     if(post?.comments == null) return undefined;
@@ -100,6 +102,33 @@ function Post({post}) {
       })
     });
   }
+  function onTogglePostLike(){
+    return togglePostLikeFn.execute({postId: post._id})
+    .then((addLike) => {
+      // console.log(addLike);
+      toggleLocalPostLike(post._id, addLike);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
+  function toggleLocalPostLike(id, addLike){
+    console.log(id, addLike);
+    setPosts(prevPosts => {
+      return prevPosts.map(p => {
+        if(p._id == id){
+          return {
+            ...p, 
+            likeCountPost: addLike ? p.likeCountPost + 1 : p.likeCountPost - 1,
+            likedByMePost: addLike ? true : false
+          };
+        }
+        else{
+          return p;
+        }
+      })
+    });
+  }
 
   return (
     <div className="div-post" key={post._id}>
@@ -139,7 +168,12 @@ function Post({post}) {
       <div className="div-post-activity-bar">
         <div className="div-post-like-comment">
           <div className="div-post-like">
-            <i className="fa-regular fa-heart fa-xl post-like"></i>
+            <div className="div-post-like-img" onClick={() => {onTogglePostLike()}}>
+              <i className={`fa-regular ${post.likedByMePost ? "fa-solid" : ""} fa-heart fa-xl post-like`}></i>
+            </div>
+            <div className="div-post-like-count">
+              {post.likeCountPost}
+            </div>
           </div>
           <div className="div-post-comment" onClick={() => setShowComments(p => !p)}>
             {

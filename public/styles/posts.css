@@ -132,8 +132,18 @@
   gap: 15px;
 }
 
-.div-post-like {
+.div-post-like-img{
   cursor: pointer;
+}
+
+.div-post-like{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.div-post-like-count{
+  width: 10px;
 }
 
 .post-like {

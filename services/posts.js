@@ -24,3 +24,9 @@ export function deleteSinglePost(id){
   });
 }
 
+export function togglePostLike({postId}){
+  return makeRequests(`/posts/${postId}/toggleLike`, {
+    method: 'POST'
+  });
+}
+

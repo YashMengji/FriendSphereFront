@@ -39,6 +39,7 @@ function Navbar() {
           <Link className="section-link" to="/home">
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
+          <div className="home-tooltip"></div>
         </div>
         <div className="div-create-post">
           <Link className="section-link" to="/create-post">
