@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import { useParams } from "react-router-dom";
-import { useAsync } from "../hooks/useAsync";
+import { useAsync, useAsyncFn } from "../hooks/useAsync";
 import { getPosts } from "../services/posts";
 import { useState } from 'react';
-import { use } from 'react';
+import { useUser } from './UserContext';
 
 export const postContext = createContext();
 
@@ -14,13 +14,25 @@ export function usePost(){
 // Here childern is automatically passed when any <PostContext> <Post/> <PostContext /> 
 function PostContext({children}) {
   const {id} = useParams();
-  const {loading, error, value} =  useAsync(getPosts);
+
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
+  const getPostsFn =  useAsyncFn(getPosts);
+  const {dToken} = useUser();
 
   useEffect(() => {
-    setPosts(value);
-  }, [value]);
+
+    if (dToken && Object.keys(dToken).length > 0) {
+      getPostsFn.execute()
+      .then(value => {
+        setPosts(value);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+    }
+  }, [dToken])
+
 
   useEffect(() => {
     setPosts(prev => prev?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -90,8 +102,8 @@ function PostContext({children}) {
       }
     > 
     {
-      loading ? (<h1>Loading...</h1>) :
-      error ? (<h1>Error</h1>) :
+      getPostsFn.loading ? (<h1>Loading...</h1>) :
+      getPostsFn.error ? (<h1>Error</h1>) :
       children
     }
     </postContext.Provider>

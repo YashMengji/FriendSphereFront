@@ -9,6 +9,7 @@ import { useAsyncFn } from '../hooks/useAsync';
 import CommentForm from './CommentForm';
 import { useParams } from 'react-router-dom'
 import { useUser } from '../contexts/UserContext';
+import { toggleCommentLike } from '../services/comments';
 
 // import mongoose from 'mongoose';
 
@@ -17,7 +18,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined /* location*/, {
   timeStyle: "short"
 }); //Intilizing format object
 
-function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt, getReplies = () => [], createLocalComment, updateLocalComment, deleteLocalComment}) {
+function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt, getReplies = () => [], createLocalComment, updateLocalComment, deleteLocalComment, toggleLocalCommentLike}) {
 
   // Create special api to fetch currently logged in user (id form cookies) 
   // (to display edit comment of logged in user only) 
@@ -37,6 +38,7 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
   // const childComments = [];
   const updateCommentFn = useAsyncFn(updateComment);
   const deleteCommentFn = useAsyncFn(deleteComment);
+  const toggleCommentLikeFn = useAsyncFn(toggleCommentLike);
 
   const [areChildrenHidden, setAreChildrenHidden] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
@@ -63,8 +65,19 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
     })
   }
 
+  function onToggleCommentLike() {
+    return toggleCommentLikeFn.execute({postId, commentId: _id})
+    .then((addLike) => {
+      // console.log(addLike);
+      toggleLocalCommentLike( _id, addLike);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
+
   return (
-    <>
+    <>  
       <div className="comment">
         <div className="header">
           <span className="name">{userId?.username}</span>
@@ -83,8 +96,14 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
         }
         <div className="footer">
           <IconBtn 
-            onClick={() => {setIsLiked(prev => !prev)}}
-            Icon={isLiked ? FaHeart : FaRegHeart} 
+            onClick={
+              () => {
+                setIsLiked(prev => !prev)
+                onToggleCommentLike()
+              }
+            }
+            disabled={toggleCommentLikeFn.loading}
+            Icon={likedByMe ? FaHeart : FaRegHeart} 
             aria-label={likedByMe ? "Unlike" : "Like"}
           >
             {likeCount}
@@ -139,6 +158,7 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
                 createLocalComment={createLocalComment} 
                 updateLocalComment={updateLocalComment} 
                 deleteLocalComment={deleteLocalComment} 
+                toggleLocalCommentLike={toggleLocalCommentLike}
               />
             </div>
           </div>

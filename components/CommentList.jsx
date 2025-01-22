@@ -1,7 +1,7 @@
 import React from 'react'
 import Comment from './Comment'
 
-function CommentList({ comments, getReplies, createLocalComment, updateLocalComment, deleteLocalComment }) {
+function CommentList({ comments, getReplies, createLocalComment, updateLocalComment, deleteLocalComment, toggleLocalCommentLike }) {
 
   return (
     <div>
@@ -15,6 +15,7 @@ function CommentList({ comments, getReplies, createLocalComment, updateLocalComm
               createLocalComment={createLocalComment}
               updateLocalComment={updateLocalComment}
               deleteLocalComment={deleteLocalComment}
+              toggleLocalCommentLike={toggleLocalCommentLike}
             />
           </div>
         )

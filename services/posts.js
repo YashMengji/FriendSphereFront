@@ -23,3 +23,4 @@ export function deleteSinglePost(id){
     method: 'DELETE'
   });
 }
+

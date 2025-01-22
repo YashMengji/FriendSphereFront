@@ -83,6 +83,23 @@ function Post({post}) {
       toast.error(error, { position: 'top-right', autoClose: 3000 });
     })
   }
+  function toggleLocalCommentLike(id, addLike){
+    console.log(id, addLike);
+    setComments(prevComments => {
+      return prevComments.map(comment => {
+        if(comment._id == id){
+          return {
+            ...comment, 
+            likeCount: addLike ? comment.likeCount + 1 : comment.likeCount - 1,
+            likedByMe: addLike ? true : false
+          };
+        }
+        else{
+          return comment;
+        }
+      })
+    });
+  }
 
   return (
     <div className="div-post" key={post._id}>
@@ -153,6 +170,7 @@ function Post({post}) {
                 createLocalComment={createLocalComment}
                 updateLocalComment={updateLocalComment}
                 deleteLocalComment={deleteLocalComment}
+                toggleLocalCommentLike={toggleLocalCommentLike}
               />
             </div>
           )}

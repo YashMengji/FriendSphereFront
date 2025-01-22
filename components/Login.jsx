@@ -3,6 +3,7 @@ import { useAsyncFn } from '../hooks/useAsync';
 import { checkUser } from '../services/users';
 import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import { useUser } from '../contexts/UserContext';
+import { toast } from 'react-toastify';
 
 function Login() {
 
@@ -26,6 +27,9 @@ function Login() {
         // Refresh the page
         window.location.reload();
       }
+    })
+    .catch(error => {
+      toast.error(error);
     })
   }
   
