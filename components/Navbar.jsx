@@ -39,22 +39,33 @@ function Navbar() {
           <Link className="section-link" to="/home">
             <i className="fa-solid fa-house fa-xl"></i>
           </Link>
-          <div className="home-tooltip"></div>
+          <div className="home-tooltip">
+            Posts
+          </div>
         </div>
         <div className="div-create-post">
           <Link className="section-link" to="/create-post">
             <i className="fa-solid fa-pen-to-square fa-xl"></i>
           </Link>
+          <div className="createPost-tooltip">
+            Create Post
+          </div>
         </div>
         <div className="div-posts">
           <Link className="section-link" to="/users">
             <i className="fa-solid fa-user fa-xl" style={{ color: "#ffffff" }}></i>
           </Link>
+          <div className="users-tooltip">
+            Users
+          </div>
         </div>
         <div className="div-edit-account">
           <Link className="section-link" to="/edit-account">
             <i className="fa-solid fa-user-pen fa-xl"></i>
           </Link>
+          <div className="editAccount-tooltip">
+            Edit Account
+          </div>
         </div>
         <input className="search-bar" type="text" placeholder="Search" value={search} onChange={onSearchChange} />
         <button className="search-icon-button" >
@@ -66,6 +77,9 @@ function Navbar() {
           <Link className="section-link" to="/notification">
             <i className="fas fa-bell fa-xl"></i>
           </Link>
+          <div className="notification-tooltip">
+            Notifications
+          </div>
         </div>
         <div className="div-profile">
           {
