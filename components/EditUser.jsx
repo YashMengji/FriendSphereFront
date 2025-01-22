@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useAsyncFn } from '../hooks/useAsync'
 import { editUser } from '../services/users'
@@ -6,9 +6,20 @@ import { toast } from 'react-toastify'
 import { useRef } from 'react'
 import { useUser } from '../contexts/UserContext'
 import { createPost } from '../services/posts'
+import { useParams } from 'react-router-dom';
 
-function EditUser() {
+function EditUser({isPublic}) {
   const { users, setUsers, logUser } = useUser();
+  const [displayUser, setDisplayUser] = useState({});
+  const { userId } = useParams(); 
+  
+  useEffect(() => {
+    if(isPublic){
+      const user = users.find(user => user._id.toString() == userId.toString());
+      console.log(user);
+      setDisplayUser(user);
+    }
+  }, [])
 
   const [fname, setFname] = useState(logUser?.fname || "");
   const [lname, setLname] = useState(logUser?.lname || "");
@@ -56,6 +67,9 @@ function EditUser() {
           toast.info('User Edited successfully!', { position: 'top-right', autoClose: 3000 });
         }
       })
+      .catch(error => {
+        console.error(error);
+      })
   }
 
   return (
@@ -67,14 +81,24 @@ function EditUser() {
         <hr />
         <div className="div-account-content">
           <div className="div-account-img">
-            <img className='account-img' src={logUser.image} alt="" />
+            <img className='account-img' src={isPublic ? displayUser?.image : logUser?.image} alt="" />
           </div>
           <div className="div-account-name">
             <div className="div-account-name-label">
               Name:
             </div>
             <div className="div-account-name-text">
-              {logUser.fname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))} {logUser.lname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))}
+              {
+                isPublic ?
+                  displayUser?.fname?.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1)) :
+                  logUser?.fname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))
+              } 
+              &nbsp;
+              {
+                isPublic ?
+                  displayUser?.lname?.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1)) :
+                  logUser?.lname.split(" ").map(name => name.toLowerCase().charAt(0).toUpperCase() + name.toLowerCase().slice(1))
+              }
             </div>
           </div>
           <div className="div-account-username">
@@ -82,7 +106,11 @@ function EditUser() {
               Username:
             </div>
             <div className="div-account-username-text">
-              {logUser.username}
+              {
+                isPublic ?
+                  displayUser?.username :
+                  logUser?.username
+              }
             </div>
           </div>
           <div className="div-account-email">
@@ -90,13 +118,17 @@ function EditUser() {
               Email:
             </div>
             <div className="div-account-email-text">
-              {logUser.email}
+              {
+                isPublic ?
+                  displayUser?.email :
+                  logUser?.email
+              }
             </div>
           </div>
         </div>
 
       </div>
-      <div className="div-edit-account-info">
+      <div className={`div-edit-account-info ${isPublic ? 'display-none' : ''}`}>
         <div className="div-edit-account-heading">
           Edit Account Information
         </div>
@@ -108,8 +140,15 @@ function EditUser() {
               <input type="text" className="Lname-input edit" placeholder="Last Name" value={lname} onChange={(e) => { setLname(e.target.value) }} />
             </div>
             <div className="div-username-input">
-              <input type="username" className="username-register-input edit" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }} />
-              <input type="password" className="password-register-input edit" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
+              <input type="username" className="username-register-input edit" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }} autoComplete='current-user' />
+              <input 
+                type="password" 
+                className="password-register-input edit" 
+                placeholder="Password" 
+                value={password} 
+                onChange={(e) => { setPassword(e.target.value) }} 
+                autoComplete="new-password"
+              />
             </div>
             <input type="email" className="email-register-input edit" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
             <label htmlFor="image-upload" className="image-upload-label edit-img" ref={imageTextRef}>

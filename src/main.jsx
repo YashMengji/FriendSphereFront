@@ -64,7 +64,16 @@ const createRouter = createBrowserRouter(
               <EditUser />
             </ProtectedRoute>
           )
-        }
+        },
+        {
+          path: "/users/:userId",
+          element: (
+            <ProtectedRoute>
+              <EditUser isPublic />
+            </ProtectedRoute>
+          )
+        },
+
       ]
     }
   ]

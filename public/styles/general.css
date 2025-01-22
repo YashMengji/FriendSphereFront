@@ -14,6 +14,7 @@ body{
   /* overflow-x: clip; */
 }
 #root{
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -21,6 +22,10 @@ body{
 ::selection {
   background-color: #ffeb3b; /* Light yellow background */
   color: #001660; /* Dark blue text */
+}
+.poster-username{
+  text-decoration: none;
+  color: #757575;
 }
 
 /* .app-div{

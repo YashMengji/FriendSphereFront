@@ -11,8 +11,9 @@ import { set } from '@cloudinary/url-gen/actions/variable';
 import { toast } from 'react-toastify';
 import { deleteSinglePost } from '../services/posts';
 import { togglePostLike } from '../services/posts';
+import { Link } from 'react-router-dom';
 
-function Post({post}) {
+function Post({post, setShowDeleteDialog, deletePost}) {
 
   const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState([]);
@@ -45,6 +46,9 @@ function Post({post}) {
     setRootComments(commentsByParentId[undefined])
   }, [commentsByParentId])
   
+  useEffect(() => {
+    
+  }, [deletePost])
 
   function getReplies(parentId){
     return commentsByParentId[parentId]
@@ -57,6 +61,7 @@ function Post({post}) {
   function createLocalComment(comment) {
     setComments(prevComments => [comment, ...prevComments]);  
   }
+
   function updateLocalComment(commentId, message) {
     setComments(prevComments => {
       return prevComments.map(comment => {
@@ -69,21 +74,26 @@ function Post({post}) {
       })
     });  
   }
+
   function deleteLocalComment(commentId) {
     // console.log(comments);
     setComments(prevComments => {
       return prevComments.filter(comment => comment._id !== commentId); // Filter out the comment to delete
     });
   }
+
   function onDeleteSinglePost() {
-    deleteSinglePostFn.execute(post._id)
-    .then(() => {
-      setPosts(prevPosts => prevPosts.filter(p => p._id !== post._id))
-      toast.success('Post Deleted Successfully!', { position: 'top-right', autoClose: 3000 });
-    })
-    .catch(error => {
-      toast.error(error, { position: 'top-right', autoClose: 3000 });
-    })
+    // setShowDeleteDialog(true)
+    // if(deletePost){
+      deleteSinglePostFn.execute(post._id)
+      .then(() => {
+        setPosts(prevPosts => prevPosts.filter(p => p._id !== post._id))
+        toast.success('Post Deleted Successfully!', { position: 'top-right', autoClose: 3000 });
+      })
+      .catch(error => {
+        toast.error(error, { position: 'top-right', autoClose: 3000 });
+      })
+    // }
   }
   function toggleLocalCommentLike(id, addLike){
     console.log(id, addLike);
@@ -141,7 +151,9 @@ function Post({post}) {
 
             </div>
             <div className='div-poster-username'>
-              {post?.userId?.username}
+              <Link to={`/users/${post?.userId?._id}`} className="poster-username">
+                {post?.userId?.username}
+              </Link>
             </div>
           </div>
           {
