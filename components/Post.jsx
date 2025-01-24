@@ -96,7 +96,7 @@ function Post({post, setShowDeleteDialog, deletePost}) {
     // }
   }
   function toggleLocalCommentLike(id, addLike){
-    console.log(id, addLike);
+    // console.log(id, addLike);
     setComments(prevComments => {
       return prevComments.map(comment => {
         if(comment._id == id){
@@ -123,7 +123,7 @@ function Post({post, setShowDeleteDialog, deletePost}) {
     })
   }
   function toggleLocalPostLike(id, addLike){
-    console.log(id, addLike);
+    // console.log(id, addLike);
     setPosts(prevPosts => {
       return prevPosts.map(p => {
         if(p._id == id){

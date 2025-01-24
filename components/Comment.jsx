@@ -10,6 +10,7 @@ import CommentForm from './CommentForm';
 import { useParams } from 'react-router-dom'
 import { useUser } from '../contexts/UserContext';
 import { toggleCommentLike } from '../services/comments';
+import { Link } from 'react-router-dom';
 
 // import mongoose from 'mongoose';
 
@@ -80,7 +81,11 @@ function Comment({likedByMe, likeCount, _id, message, userId, postId, createdAt,
     <>  
       <div className="comment">
         <div className="header">
-          <span className="name">{userId?.username}</span>
+          <span className="name">
+            <Link to={`/users/${userId?._id}`} className="commentor-username">
+              {userId?.username}
+            </Link>
+          </span>
           <span className="date">{dateFormatter.format(Date.parse(createdAt))}</span>
         </div>
         { isEditing ? 

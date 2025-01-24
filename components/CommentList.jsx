@@ -6,7 +6,7 @@ function CommentList({ comments, getReplies, createLocalComment, updateLocalComm
   return (
     <div>
       {comments.map(comment => {
-        console.log(comment)
+        // console.log(comment)
         return (
           <div key={comment._id} className='comment-stack'>
             <Comment

@@ -4,27 +4,42 @@ import { createComment } from "../services/comments";
 import CommentForm from "./CommentForm";
 import {usePost} from "../contexts/PostContext"
 import Post from "./Post";
-
+import { useUser } from '../contexts/UserContext';
 
 function Posts() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(true);
   const [deletePost, setDeletePost] = useState(false);
-
+  const {search} = useUser();
 
   const {posts} = usePost();
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    console.log(posts)
-  }, [posts])
+    if(search){
+      setSearchResults( posts.filter(post => post.title.toLowerCase().includes(search?.toLowerCase()) || post.body.toLowerCase().includes(search?.toLowerCase())) );
+      // console.log(searchResults);
+    }
+  }, [search]);
+
+
   return (
     <>
       <div className="posts-div">
         {
-          posts?.map((post) => {
-            return (
-              <Post key={post._id} post={post} posts={posts} setShowDeleteDialog={setShowDeleteDialog} deletePost={deletePost} />
-            )
-          })
+          (search != "") ? (
+            searchResults.map((post) => {
+              return (
+                <Post key={post._id} post={post} posts={posts} setShowDeleteDialog={setShowDeleteDialog} deletePost={deletePost} />
+              )
+            })
+          ) : (
+            posts?.map((post) => {
+              return (
+                <Post key={post._id} post={post} posts={posts} setShowDeleteDialog={setShowDeleteDialog} deletePost={deletePost} />
+              )
+            })
+          )
+
         }
       </div>
       {/* {showDeleteDialog && (

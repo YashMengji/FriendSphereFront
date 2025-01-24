@@ -27,6 +27,14 @@ body{
   text-decoration: none;
   color: #757575;
 }
+.commentor-username{
+  text-decoration: none;
+  color: #ececec;
+}
+.user-username{
+  text-decoration: none;
+  color: rgb(226, 226, 226);
+}
 
 /* .app-div{
   display: flex;

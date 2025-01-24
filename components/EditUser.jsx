@@ -16,7 +16,7 @@ function EditUser({isPublic}) {
   useEffect(() => {
     if(isPublic){
       const user = users.find(user => user._id.toString() == userId.toString());
-      console.log(user);
+      // console.log(user);
       setDisplayUser(user);
     }
   }, [])

@@ -5,6 +5,7 @@ import { sendRequest, unFriend, removeRequest } from '../services/users';
 import { useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
 
@@ -73,7 +74,11 @@ function User({user, isFriendGlobal=false, isRequestSentGlobal=false}) {
       </div>
       <div className="div-profile-details"> 
         <div className="div-profile-name ">{fname} {lname}</div>
-        <div className="div-profile-username ">{username}</div>
+        <div className="div-profile-username ">
+          <Link to={`/users/${_id}`} className="user-username">
+            {username}
+          </Link>
+        </div>
       </div>
       <div className="div-add-friend-btn">
         {

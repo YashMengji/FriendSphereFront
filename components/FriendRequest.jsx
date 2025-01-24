@@ -4,6 +4,7 @@ import { acceptRequest , rejectRequest} from '../services/users';
 import { useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 function FriendRequest({user}) {
   const {_id, fname, lname, username} = user;
@@ -50,7 +51,11 @@ function FriendRequest({user}) {
       </div>
       <div className="div-profile-details"> 
         <div className="div-profile-name ">{fname} {lname}</div>
-        <div className="div-profile-username ">{username}</div>
+        <div className="div-profile-username ">
+          <Link to={`/users/${_id}`} className="user-username">
+            {username}
+          </Link>
+        </div>
       </div>  
       <div className="div-request-friend-btn">
         <button ref={acceptButtonRef} className="accept-friend-btn " onClick={acceptFriendRequest}>

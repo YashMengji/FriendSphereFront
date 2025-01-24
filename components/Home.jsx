@@ -4,9 +4,8 @@ import { useUser } from '../contexts/UserContext'
 
 function Home() {
 
-  const {users, setUsers, dToken, search} = useUser();
+  const {users, dToken, search} = useUser();
   const [friends, setFriends] = useState([]) ;
-  const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequestsSent, setFriendRequestsSent] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   // console.log(users);
@@ -26,7 +25,7 @@ function Home() {
     }
   }, [search]);
 
-
+  
 
 
   return (
