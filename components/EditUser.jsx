@@ -141,14 +141,6 @@ function EditUser({isPublic}) {
             </div>
             <div className="div-username-input">
               <input type="username" className="username-register-input edit" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }} autoComplete='current-user' />
-              <input 
-                type="password" 
-                className="password-register-input edit" 
-                placeholder="Password" 
-                value={password} 
-                onChange={(e) => { setPassword(e.target.value) }} 
-                autoComplete="new-password"
-              />
             </div>
             <input type="email" className="email-register-input edit" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
             <label htmlFor="image-upload" className="image-upload-label edit-img" ref={imageTextRef}>
