@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 function FriendRequest({user}) {
-  const {_id, fname, lname, username} = user;
+  const {_id, fname, lname, username, image} = user;
   const acceptButtonRef = useRef(null);
   const rejectButtonRef = useRef(null);
 
@@ -47,7 +47,7 @@ function FriendRequest({user}) {
   return (
     <div className="user-div"> 
       <div className="div-profile-img">
-        <img src={logUser?.image} className='profile-img'/>
+        <img src={image} className='profile-img'/>
       </div>
       <div className="div-profile-details"> 
         <div className="div-profile-name ">{fname} {lname}</div>
